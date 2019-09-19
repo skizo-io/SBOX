@@ -7,19 +7,16 @@ import java.util.*
 open class BasePreferences {
 
     companion object {
-        private val PREFERENCES_NAME = "pref_smackjeeves"
-
         private var pref: SharedPreferences? = null
 
         val base: BasePreferences = BasePreferences()
 
-        fun init(context: Context) {
-            pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+        fun init(context: Context, preferences_name: String = "skizo") {
+            pref = context.getSharedPreferences(preferences_name, Context.MODE_PRIVATE)
             pref?.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
                 //                    dispatcher(PREFERENCES_NAME, key)
             }
         }
-
 
         /**
          * usage
