@@ -9,7 +9,7 @@ import android.widget.ImageView
 
 
 @SuppressLint("AppCompatCustomView")
-class SJImageView : ImageView {
+class FlexibleImageView : ImageView {
 
     var isFixWidth = true
 

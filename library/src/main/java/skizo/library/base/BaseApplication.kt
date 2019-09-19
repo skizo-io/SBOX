@@ -73,6 +73,18 @@ class BaseApplication: MultiDexApplication(), Application.ActivityLifecycleCallb
         RETURNED_TO_FOREGROUND,    // app returned to foreground(or first launch)
         FOREGROUND;                // app is foreground
     }
+    /*
+    override fun onResume() {
+        if (BaseApplication.instance.isReturnedToForeground) {
+            if(this is SplashActivity) //App Status firstStart
+            else //App Status returnToForeground
+        }
+    }
+    override fun onStop() {
+        if (!BaseApplication.instance.isForeground) //App Status isBackground
+    }
+    */
+
 
     var mAppStatus: AppStatus =
         AppStatus.FOREGROUND
@@ -89,9 +101,9 @@ class BaseApplication: MultiDexApplication(), Application.ActivityLifecycleCallb
 
         override fun onActivityStarted(activity: Activity?) {
             if (++running == 1) {
-                mAppStatus = AppStatus.RETURNED_TO_FOREGROUND;
+                mAppStatus = AppStatus.RETURNED_TO_FOREGROUND
             } else if (running > 1) {
-                mAppStatus = AppStatus.FOREGROUND;
+                mAppStatus = AppStatus.FOREGROUND
             }
         }
 
@@ -103,7 +115,7 @@ class BaseApplication: MultiDexApplication(), Application.ActivityLifecycleCallb
 
         override fun onActivityStopped(activity: Activity?) {
             if (--running == 0) {
-                mAppStatus = AppStatus.BACKGROUND;
+                mAppStatus = AppStatus.BACKGROUND
             }
         }
 
@@ -113,5 +125,8 @@ class BaseApplication: MultiDexApplication(), Application.ActivityLifecycleCallb
         override fun onActivityDestroyed(activity: Activity?) {
         }
     }
+
+
+
 
 }

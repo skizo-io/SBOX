@@ -1,19 +1,19 @@
-package skizo.library.base
+package skizo.library.sample
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
-import com.smackjeeves.ui.base.BaseActivity
-import com.smackjeeves.ui.base.BaseFragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 
-class EmptyActivity : BaseActivity() {
+class EmptyActivity : AppCompatActivity() {
 
     companion object {
         val FRAGMENT = "FRAGMENT"
     }
 
-    var fragment: BaseFragment? = null
+    var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -26,7 +26,7 @@ class EmptyActivity : BaseActivity() {
             val bundle = intent.extras
             val frag = Class.forName(bundle.getString(FRAGMENT))
             fragment = frag.getMethod("newInstance", Bundle::class.java)?.let {
-                it.invoke(null, bundle) as BaseFragment
+                it.invoke(null, bundle) as Fragment
             }
 
             fragment?.let {
@@ -41,7 +41,6 @@ class EmptyActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        fragment?.resultActivity(requestCode, resultCode, data)
 
     }
 }

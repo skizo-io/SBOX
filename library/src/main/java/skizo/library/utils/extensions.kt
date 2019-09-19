@@ -28,19 +28,14 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
-import com.smackjeeves.ui.base.BaseFragment
-import retrofit2.Call
 import skizo.library.BuildConfig
 import skizo.library.base.BaseApplication
-import skizo.library.base.EmptyActivity
+import skizo.library.sample.EmptyActivity
 import skizo.library.utils.put
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import kotlin.reflect.KClass
-import kotlin.reflect.KFunction
 import kotlin.reflect.KProperty
 
 
@@ -124,7 +119,7 @@ inline fun <reified T : Context> Context.newIntent(vararg pairs: Pair<String, An
 
 inline fun bundleOf(vararg pairs: Pair<String, Any?>) = Bundle(pairs.size).apply { put(*pairs) }
 
-inline fun <reified T : BaseFragment> Any?.newFragment(bundle: Bundle? = null) {
+inline fun <reified T : Fragment> Any?.newFragment(bundle: Bundle? = null) {
     var argument = bundle ?: Bundle()
     argument.putString(EmptyActivity.FRAGMENT, T::class.java.canonicalName)
     getContext().startActivity(
@@ -136,7 +131,7 @@ inline fun <reified T : BaseFragment> Any?.newFragment(bundle: Bundle? = null) {
 
 
 @SuppressLint("WrongConstant")
-inline fun <reified T : BaseFragment> Fragment.stackFragment(bundle: Bundle? = null) {
+inline fun <reified T : Fragment> Fragment.stackFragment(bundle: Bundle? = null) {
     var fragment = T::class.java.getMethod("newInstance", Bundle::class.java)?.let {
         it.invoke(null, bundle) as T
     }
