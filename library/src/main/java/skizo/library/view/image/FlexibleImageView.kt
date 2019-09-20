@@ -2,24 +2,17 @@ package skizo.library.view.image
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.View
 import android.widget.ImageView
 
 
 @SuppressLint("AppCompatCustomView")
-class FlexibleImageView : ImageView {
+class FlexibleImageView(context: Context, attrs: AttributeSet? = null) : ImageView(context, attrs) {
 
     var isFixWidth = true
 
     private var isCustomSize = false
-
     private var rate = 0f
-
-    constructor(context: Context) : super(context) {}
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val d = drawable
@@ -49,13 +42,9 @@ class FlexibleImageView : ImageView {
         }
     }
 
-    fun setRate(rate: Float) {
-        isCustomSize = true
-        this.rate = rate
-    }
+    fun setSize(width: Int = 0, height: Int = 0, rate: Float = 0f) {
 
 
-    fun setWidthSize(height: Int, rate: Float) {
         isCustomSize = true
         val width = (height * rate).toInt()
         setMeasuredDimension(width, height)
@@ -66,4 +55,10 @@ class FlexibleImageView : ImageView {
         val height = (width * rate).toInt()
         setMeasuredDimension(width, height)
     }
+
+    fun setRate(rate: Float) {
+        isCustomSize = true
+        this.rate = rate
+    }
+
 }
