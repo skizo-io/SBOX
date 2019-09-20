@@ -2,7 +2,6 @@ package skizo.library.utils
 
 import android.os.Bundle
 import android.os.Parcelable
-import com.smackjeeves.utils.trace
 import java.io.Serializable
 
 

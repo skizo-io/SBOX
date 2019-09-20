@@ -39,25 +39,8 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 
-val isDebugMode: Boolean by lazy {
-    BuildConfig.DEBUG_MODE
-}
 
 
-fun <T : Any> T.getClass(): KClass<out T> = this::class
-val <T : Any> T.getSimpleName: String get() = getClass().java.simpleName
-val <T : Any> T.kClass: KClass<T> get() = javaClass.kotlin
-
-fun todo(message: String = "") {
-    if (!isDebugMode) throw NullPointerException("###### TEST CODE : $message ######")
-}
-
-fun trace(vararg log: Any?) {
-    if (isDebugMode) {
-//        var name = this?.apply { getSimpleName } ?: ""
-        Log.println(Log.VERBOSE, "comico//", log.joinToString(" : "))
-    }
-}
 
 fun <T : Any> T?.notNull(t: (it: T) -> Unit, f: (() -> Unit)? = null) {
     if (this == null) f?.let { f() } else t(this)
