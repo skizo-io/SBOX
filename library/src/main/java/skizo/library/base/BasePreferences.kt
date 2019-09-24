@@ -51,7 +51,6 @@ open class BasePreferences {
                 }
                 return field
             }
-
     }
 
 
@@ -59,49 +58,30 @@ open class BasePreferences {
         pref?.edit()?.clear()?.apply()
     }
 
-    fun set(key: String, value: Int): Int {
-        pref?.edit()?.putInt(key, value)?.apply()
-        return value
+    fun set(key: String, value: Any) {
+        pref?.edit()?.apply {
+            when(value) {
+                is Int -> putInt(key, value)
+                is String -> putString(key, value)
+                is Float -> putFloat(key, value)
+                is Long -> putLong(key, value)
+                is Boolean -> putBoolean(key, value)
+            }
+        }?.apply()
     }
 
-    fun get(key: String, defValue: Int): Int {
-        return pref?.getInt(key, defValue) ?: defValue
-    }
-
-    fun set(key: String, value: String): String {
-        pref?.edit()?.putString(key, value)?.apply()
-        return value
-    }
-
-    fun get(key: String, defValue: String): String {
-        return pref?.getString(key, defValue) ?: defValue
-    }
-
-    fun set(key: String, value: Float): Float {
-        pref?.edit()?.putFloat(key, value)?.apply()
-        return value
-    }
-
-    fun get(key: String, defValue: Float): Float {
-        return pref?.getFloat(key, defValue) ?: defValue
-    }
-
-    fun set(key: String, value: Long): Long {
-        pref?.edit()?.putLong(key, value)?.apply()
-        return value
-    }
-
-    fun get(key: String, defValue: Long): Long {
-        return pref?.getLong(key, defValue) ?: defValue
-    }
-
-    fun set(key: String, value: Boolean): Boolean {
-        pref?.edit()?.putBoolean(key, value)?.apply()
-        return value
-    }
-
-    fun get(key: String, defValue: Boolean): Boolean {
-        return pref?.getBoolean(key, defValue) ?: defValue
+    fun <T> get(key: String, defalut: Any): T {
+        pref?.apply {
+            return when(defalut) {
+                is Int -> getInt(key, defalut)
+                is String -> getString(key, defalut)
+                is Float -> getFloat(key, defalut)
+                is Long -> getLong(key, defalut)
+                is Boolean -> getBoolean(key, defalut)
+                else -> defalut
+            } as T
+        }
+        return defalut as T
     }
 
 
