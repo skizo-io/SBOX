@@ -182,6 +182,7 @@ dependencies {
     testImplementation "androidx.paging:paging-common:$paging_version" // use -ktx for Kotlin
     implementation "androidx.paging:paging-rxjava2:$paging_version" // use -ktx for Kotlin
 
+    implementation 'org.jsoup:jsoup:1.12.1'
 }
 
 
