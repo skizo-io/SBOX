@@ -10,7 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import skizo.library.utils.trace
+import skizo.library.extensions.trace
 import skizo.sbox.ui.base.BaseActivity
 import java.io.IOException
 
