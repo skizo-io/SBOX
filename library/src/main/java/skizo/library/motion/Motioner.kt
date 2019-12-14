@@ -3,9 +3,9 @@ package skizo.library.motion
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
+import skizo.library.Builder
 
 
 class Motioner {

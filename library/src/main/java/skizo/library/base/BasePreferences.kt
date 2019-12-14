@@ -1,64 +1,47 @@
-package com.smackjeeves.preferences.base
+package skizo.library.base
 
 import android.content.Context
 import android.content.SharedPreferences
-import java.util.*
+
+
+/*
+class AppPreference: BasePreferences() {
+    companion object {
+        fun uuid() {
+            base.set("uuid", UUID.randomUUID().toString())
+        }
+        var app: Boolean = true
+            get() = base.get("app", true)
+            set(value) {
+                field = base.set("app", value)
+            }
+        }
+     }
+}
+*/
+
 
 open class BasePreferences {
 
     companion object {
         private var pref: SharedPreferences? = null
-
-        val base: BasePreferences = BasePreferences()
-
-        fun init(context: Context, preferences_name: String = "skizo") {
+        val base: BasePreferences =
+            BasePreferences()
+        fun init(context: Context, preferences_name: String = "pref") {
             pref = context.getSharedPreferences(preferences_name, Context.MODE_PRIVATE)
             pref?.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
                 //                    dispatcher(PREFERENCES_NAME, key)
             }
         }
 
-        /**
-         * usage
-         * BasePreferences.init(applicationContext)
-         */
-        /*
-        var advertiginId: String = ""
-            get() {
-                field = base.get("advertiginId", "")
-                if (field.isEmpty()) {
-                    Thread(Runnable {
-                        try {
-                            field =
-                                AdvertisingIdClient.getAdvertisingIdInfo(SmackApplication.instance)
-                                    .id
-                            base.set("advertiginId", field)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }).start()
-                }
-                return field
-            }
-        */
-        var uuid: String = ""
-            get() {
-                field = base.get("uuid", "")
-                if (field.isEmpty()) {
-//                    field = android.provider.Settings.Secure.getString(BaseApplication.instance.contentResolver, Settings.Secure.ANDROID_ID)
-                    field = UUID.randomUUID().toString()
-                    base.set("uuid", field)
-                }
-                return field
-            }
-    }
 
+    }
 
     fun clear() {
         pref?.edit()?.clear()?.apply()
     }
 
-    fun set(key: String, value: Any) {
+    fun <T> set(key: String, value: T): T {
         pref?.edit()?.apply {
             when(value) {
                 is Int -> putInt(key, value)
@@ -68,9 +51,10 @@ open class BasePreferences {
                 is Boolean -> putBoolean(key, value)
             }
         }?.apply()
+        return value
     }
 
-    fun <T> get(key: String, defalut: Any): T {
+    fun <T> get(key: String, defalut: T): T {
         pref?.apply {
             return when(defalut) {
                 is Int -> getInt(key, defalut)
@@ -81,8 +65,10 @@ open class BasePreferences {
                 else -> defalut
             } as T
         }
-        return defalut as T
+        return defalut
     }
 
 
 }
+
+
