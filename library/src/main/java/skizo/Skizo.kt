@@ -49,6 +49,8 @@ class Builder(val context: Context) {
 
         if(context is Application) {
             context.registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks())
+
+
         }
 
     }
