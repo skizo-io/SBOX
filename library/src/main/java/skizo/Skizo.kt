@@ -25,8 +25,8 @@ class Builder(val context: Context) {
     enum class AppStatus {
         // check from onResume,onStop
         BACKGROUND,                // app is background
-        RETURNED_TO_FOREGROUND,    // app returned to foreground(or first launch)
-        FOREGROUND;                // app is foreground
+        RETURNED_TO_FOREGROUND,    // app returned to foreground(or first launch) (in onResume
+        FOREGROUND;                // app is foreground (in onStop
     }
 
 
