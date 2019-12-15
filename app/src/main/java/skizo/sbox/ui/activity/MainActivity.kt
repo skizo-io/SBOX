@@ -10,7 +10,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import skizo.library.Builder
 import skizo.library.extensions.trace
 import skizo.sbox.R
 import skizo.sbox.ui.base.BaseActivity
@@ -32,7 +31,7 @@ class MainActivity : BaseActivity() {
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_dashboard,
-                R.id.navigation_notifications
+                R.id.navigation_setting
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

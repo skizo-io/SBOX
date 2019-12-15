@@ -12,6 +12,8 @@ import skizo.sbox.R
 
 class HomeFragment : Fragment() {
 
+    // 카드 타입으로 구성, 서버에서 제이슨 받아서 표시,,, 업데이트 내용 표시 등..
+
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(

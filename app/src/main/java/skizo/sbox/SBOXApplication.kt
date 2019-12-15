@@ -32,7 +32,6 @@ class SBOXApplication: MultiDexApplication(), Application.ActivityLifecycleCallb
         Skizo.startInit(this)
             .isDebugMode(Config.isDebugMode)
 
-        registerActivityLifecycleCallbacks(SJActivityLifecycleCallbacks())
 
         Stetho.initializeWithDefaults(this)
 
@@ -82,50 +81,5 @@ class SBOXApplication: MultiDexApplication(), Application.ActivityLifecycleCallb
     override fun onActivityCreated(p0: Activity?, p1: Bundle?) {
     }
 
-
-    enum class AppStatus {
-        BACKGROUND,                // app is background
-        RETURNED_TO_FOREGROUND,    // app returned to foreground(or first launch)
-        FOREGROUND;                // app is foreground
-    }
-
-    var mAppStatus: AppStatus = AppStatus.FOREGROUND
-    var isReturnedToForeground: Boolean = false
-        get() = mAppStatus == AppStatus.RETURNED_TO_FOREGROUND
-    var isForeground: Boolean = false
-        get() = mAppStatus.ordinal > AppStatus.BACKGROUND.ordinal
-
-    inner class SJActivityLifecycleCallbacks: ActivityLifecycleCallbacks {
-        var running: Int = 0
-
-        override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-        }
-
-        override fun onActivityStarted(activity: Activity?) {
-            if (++running == 1) {
-                mAppStatus = AppStatus.RETURNED_TO_FOREGROUND;
-            } else if (running > 1) {
-                mAppStatus = AppStatus.FOREGROUND;
-            }
-        }
-
-        override fun onActivityResumed(activity: Activity?) {
-        }
-
-        override fun onActivityPaused(activity: Activity?) {
-        }
-
-        override fun onActivityStopped(activity: Activity?) {
-            if (--running == 0) {
-                mAppStatus = AppStatus.BACKGROUND;
-            }
-        }
-
-        override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-        }
-
-        override fun onActivityDestroyed(activity: Activity?) {
-        }
-    }
 
 }
