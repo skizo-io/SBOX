@@ -1,0 +1,26 @@
+package com.smackjeeves.event
+
+class EventType {
+
+
+    companion object {
+
+        val VIEWER_CHANGE_CONTENT: String = "VIEWER_CHANGE_CONTENT"
+        val VIEWER_RELOAD: String = "VIEWER_RELOAD"
+
+        val VIEWER_PAGE_IS_LAST_PAGE: String = "VIEWER_PAGE_IS_LAST_PAGE"
+        val VIEWER_PAGE_SCROLL_STATE_DRAGGING: String = "VIEWER_PAGE_SCROLL_STATE_DRAGGING"
+        val VIEWER_PAGE_CHANGE_SEEKBAR: String = "VIEWER_PAGE_CHANGE_SEEKBAR"
+        val VIEWER_PAGE_CHANGE_VIEWPAGER: String = "VIEWER_PAGE_CHANGE_VIEWPAGER"
+
+        val VIEWER_TOUCH: String = "VIEWER_TOUCH"
+
+
+        val DATA_RELOAD_BALANCE: String = "DATA_RELOAD_BALANCE"
+        val DATA_RELOAD_USERINFO: String = "DATA_RELOAD_USERINFO"
+
+    }
+
+
+
+}

@@ -2,6 +2,10 @@ package skizo.sbox.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import skizo.library.Builder
+import skizo.library.extensions.trace
+import skizo.sbox.ui.activity.SplashActivity
+
 abstract class BaseActivity: AppCompatActivity() {
 
 
@@ -20,18 +24,14 @@ abstract class BaseActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        /*
-        if(SmackApplication.instance.isReturnedToForeground) {
-            if(this is SplashActivity)
-                trace("App Status firstStart")
-            else
-                trace("App Status returnToForeground")
-            Api.service.getAppInfo().send()
-            Api.service.getUserInfo().send()
+        if(Builder.isReturnedToForeground) {
+            if(this is SplashActivity) {
+                trace("##BaseActivity## App Status firstStart")
+            } else {
+                trace("##BaseActivity## App Status returnToForeground")
+            }
 
         }
-*/
-
 
     }
 
@@ -41,11 +41,10 @@ abstract class BaseActivity: AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-//        if(!SmackApplication.instance.isForeground) {
-//            trace("App Status isBackground")
-//
-//        }
 
+        if(Builder.isBackground) {
+            trace("##BaseActivity## App Status isBackground")
+        }
 
     }
 

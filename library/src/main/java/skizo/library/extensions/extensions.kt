@@ -3,6 +3,7 @@
 package skizo.library.extensions
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -24,6 +25,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import skizo.library.Builder
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
@@ -49,7 +51,7 @@ fun todo(message: String = "") {
 fun trace(vararg log: Any?) {
     if (Builder.isDebugMode) {
 //        var name = this?.apply { getSimpleName } ?: ""
-        Log.println(Log.VERBOSE, "comico//", log.joinToString(" : "))
+        Log.println(Log.VERBOSE, "trace//", log.joinToString(" : "))
     }
 }
 
@@ -65,6 +67,13 @@ fun mainThread(runnable: () -> Unit) {
 fun delayed(runnable: () -> Unit, delayMillis: Long = 500) {
     uiHandler.postDelayed(runnable, delayMillis)
 }
+
+
+inline fun <reified T : Activity> Activity.newActivity(vararg pairs: Pair<String, Any?>): Unit =
+    this.startActivity(newIntent<T>(*pairs))
+
+inline fun <reified T : Context> Context.newIntent(vararg pairs: Pair<String, Any?>): Intent =
+    Intent(this, T::class.java).apply { putExtras(bundleOf(*pairs)) }
 
 
 fun Any?.showToast(message: Any) {
