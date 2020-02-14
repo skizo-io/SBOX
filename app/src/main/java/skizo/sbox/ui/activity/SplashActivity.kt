@@ -32,7 +32,7 @@ class SplashActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
 
         ImageView(applicationContext).let {
-            it.setImageResource(R.mipmap.ic_launcher)
+            it.setImageResource(R.drawable.sbox_logo)
             it.setPadding(16.toPx, 0, 16.toPx, 0)
             setContentView(it)
         }

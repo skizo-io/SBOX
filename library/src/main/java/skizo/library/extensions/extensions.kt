@@ -26,6 +26,9 @@ import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import skizo.library.Builder
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
@@ -225,6 +228,15 @@ fun Context.showMaintenance() {
 
 
 val Any?.isNotNull: Boolean get() = if (this == null) true else false
+
+
+fun <T> LiveData<T>.observeNotNull(owner: LifecycleOwner, observer: (T) -> Unit) {
+    this.observe(owner, Observer {
+        if (it != null) {
+            observer(it)
+        }
+    })
+}
 
 
 tailrec fun Any.destroy(vararg objs: Any? = emptyArray()) {

@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#4791d1</color>
+    <color name="colorPrimaryDark">#2E71AA</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="black">#2e3438</color>
+    <color name="dark_grey">#9b9d9e</color>
+    <color name="grey">#e8e8e8</color>
+    <color name="light_grey">#f3f5f7</color>
+    <color name="white">#ffffff</color>
+    <color name="error">#f74e64</color>
+    <color name="success">#7ed321</color>
+    <color name="selected">#f74e64</color>
+
+    <!-- alpha% -->
+    <color name="transparent">#00000000</color>
+    <color name="black_a10">#1A000000</color>
+    <color name="black_a30">#33000000</color>
+    <color name="black_a40">#66000000</color>
+    <color name="black_a50">#80000000</color>
+    <color name="black_a80">#CC000000</color>
+    <color name="white_a30">#4DFFFFFF</color>
+    <color name="white_a50">#80ffffff</color>
+    <color name="white_a90">#E6FFFFFF</color>
+    <color name="orange_a50">#80ff8f40</color>
+    <color name="g30_a40">#664c4c4c</color>
+    <color name="primary_a50">#664791d1</color>
 </resources>

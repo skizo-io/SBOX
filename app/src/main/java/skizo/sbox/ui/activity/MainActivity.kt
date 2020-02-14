@@ -1,5 +1,6 @@
 package skizo.sbox.ui.activity
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Html
 import androidx.navigation.findNavController
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
+import skizo.library.extensions.getColorFromRes
 import skizo.library.extensions.trace
 import skizo.sbox.R
 import skizo.sbox.preferences.AppPreference
@@ -24,6 +26,44 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+/*
+BottomNavigationView
+        if (AppPreference.showOnboarding) {
+//            newActivity<OnboardingActivity>()
+//            AppPreference.showOnboarding = false
+        }
+*/
+/*
+
+        activity_main_navigation.itemIconTintList = ColorStateList(
+            arrayOf(
+                intArrayOf(-android.R.attr.state_checked),
+                intArrayOf(android.R.attr.state_checked)
+            ),
+            intArrayOf(getColorFromRes(R.color.dark_grey), getColorFromRes(R.color.black))
+        )
+*/
+
+
+
+        val navController = findNavController(R.id.activity_main_container)
+//        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_home, R.id.navigation_daily, R.id.navigation_ranking))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        activity_main_navigation.setupWithNavController(navController)
+
+//        activity_main_navigation.setOnNavigationItemSelectedListener { item ->
+//            replaceFragment(item.itemId)
+//        }
+
+
+
+//        Api.service.getGenre().send()
+
+
+
 
 
 
