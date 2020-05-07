@@ -14,6 +14,6 @@ allprojects {
 ```
 ```
 dependencies {
-  implementation 'com.github.byungkyu-kim:SBOX:Tag'
+  implementation 'com.github.skizo-io:SBOX:Tag'
 }
 ```
