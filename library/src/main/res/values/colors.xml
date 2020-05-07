@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="primaryDark">#8B113E</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorSurface">#8B113E</color>
+    <color name="colorAccent">#8B113E</color>
+
+    <color name="secondary">#7a7af5</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black5">#0c000000</color>
+    <color name="gray01">#212529</color>
+    <color name="gray02">#495057</color>
+    <color name="gray03">#868e96</color>
+    <color name="gray04">#adb5bd</color>
+    <color name="gray05">#ced4da</color>
+    <color name="gray06">#dee2e6</color>
+    <color name="gray07">#e9ecef</color>
+    <color name="gray08">#f1f3f5</color>
+    <color name="bg">#f8f9fa</color>
+    <color name="primary">#f40000</color>
+    <color name="gradient">#ff0055</color>
+
+    <color name="free">#7a7af5</color>
+    <color name="black8">#14000000</color>
+    <color name="black40">#66000000</color>
+    <color name="black80">#cc000000</color>
+    <color name="ad">#f77e28</color>
+    <color name="event">#8041fd</color>
+
+
+    <color name="orange">#fb7415</color>
+    <color name="error">#f74e64</color>
+    <color name="success">#7ed321</color>
+    <color name="selected">#f74e64</color>
+
+    <!-- alpha% -->
+    <color name="black_a10">#1A000000</color>
+    <color name="black_a30">#33000000</color>
+    <color name="black_a40">#66000000</color>
+    <color name="black_a50">#80000000</color>
+    <color name="black_a80">#CC000000</color>
+    <color name="white_a30">#4DFFFFFF</color>
+    <color name="white_a50">#80ffffff</color>
+    <color name="white_a90">#E6FFFFFF</color>
+    <color name="orange_a50">#80ff8f40</color>
+    <color name="g30_a40">#664c4c4c</color>
+    <color name="primary_a50">#664791d1</color>
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "880195832808",
+    "firebase_url": "https://skizo-box.firebaseio.com",
+    "project_id": "skizo-box",
+    "storage_bucket": "skizo-box.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880195832808:android:7968199b0369b74e4c725d",
+        "android_client_info": {
+          "package_name": "io.sbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880195832808-0e3tu8tliq72bl9ao6s8uni903qs89j3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxOiNYYH7zlLjeaLcrhNHdWynI0qdIb34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880195832808-0e3tu8tliq72bl9ao6s8uni903qs89j3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
