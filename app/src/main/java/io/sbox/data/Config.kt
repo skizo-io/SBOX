@@ -1,4 +1,4 @@
-package io.sbox.core
+package io.sbox.data
 
 class Config {
 

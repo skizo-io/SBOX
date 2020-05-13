@@ -17,6 +17,7 @@ import androidx.core.content.FileProvider
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
@@ -24,8 +25,12 @@ class Debugger {
 
     companion object {
 
+        private var emails: ArrayList<String>? = null
+
         @SuppressLint("WrongConstant")
-        fun showNotification(context: Context, emails:List<String>? = null) {
+        fun showNotification(context: Context, emails: ArrayList<String>? = null) {
+            this.emails = emails
+
             val mNotificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val builder: NotificationCompat.Builder =
@@ -108,13 +113,21 @@ class Debugger {
                 }
 
                 // prefere...
-                /*
+                log.append("----------- SharedPreferences Infomation -----------\n")
                 val prefsdir = File(context.applicationInfo.dataDir, "shared_prefs")
                 if (prefsdir.exists() && prefsdir.isDirectory) {
                     val list: Array<String> = prefsdir.list()
-
+                    list.forEach {
+                        val name = it.split(".xml").getOrNull(0)
+                        log.append("##### $name #####\n")
+                        name?.let {
+                            context.getSharedPreferences(it, Context.MODE_PRIVATE)?.all?.forEach {
+                                log.append("${it.key} : ${it.value}\n")
+                            }
+                        }
+                    }
                 }
-                */
+
 
                 log.append("\n$divide\n\n")
             } catch (e: Exception) {
@@ -163,7 +176,7 @@ class Debugger {
                     }
 
                     log.append(temp.toString())
-                    log.append("\n---------------------- Temp \n\n")
+                    log.append("\n---------------------- Temp Log \n\n\n")
                 }
 
                 val process = Runtime.getRuntime().exec("logcat -d")
@@ -186,7 +199,8 @@ class Debugger {
                 bfw.write(log.toString())
                 bfw.flush()
                 bfw.close()
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+            }
 
             return filePath
         }
@@ -199,7 +213,9 @@ class Debugger {
             val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
 //            intent.setType("text/plain")
             intent.type = "plain/text"
-//            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("skizo80@gmail.com"))
+            emails?.let {
+                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(it.joinToString()))
+            }
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
             intent.putExtra(Intent.EXTRA_TEXT, "${context.packageName}")
 
@@ -213,9 +229,6 @@ class Debugger {
             context.startActivity(mIntent)
         }
     }
-
-
-
 
 
 }

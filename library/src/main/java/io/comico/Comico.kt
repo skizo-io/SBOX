@@ -59,7 +59,7 @@ class Builder(val context: Context) {
 
     }
 
-    fun isDebugMode(bl: Boolean, emails:List<String>? = null) {
+    fun isDebugMode(bl: Boolean, emails: ArrayList<String>? = null) {
         isDebugMode = bl
 
         if (isDebugMode) {

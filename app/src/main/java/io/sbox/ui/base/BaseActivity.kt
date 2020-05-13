@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.comico.library.extensions.trace
 import io.comico.library.Builder
-import io.sbox.ui.activity.SplashActivity
+import io.sbox.ui.activity.OverlayActivity
 
 abstract class BaseActivity: AppCompatActivity() {
 
@@ -25,7 +25,7 @@ abstract class BaseActivity: AppCompatActivity() {
         super.onResume()
 
         if(Builder.isReturnedToForeground) {
-            if(this is SplashActivity) {
+            if(this is OverlayActivity) {
                 trace("##BaseActivity## App Status firstStart")
             } else {
                 trace("##BaseActivity## App Status returnToForeground")

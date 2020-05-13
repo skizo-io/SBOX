@@ -8,6 +8,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
@@ -19,15 +20,15 @@ import android.os.SystemClock
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -62,7 +63,7 @@ fun trace(vararg log: Any?) {
 
         val max = 4000
         while (logText.length > 0) {
-            if(logText.length > max) {
+            if (logText.length > max) {
                 Log.println(Log.VERBOSE, tag, logText.substring(0, max))
                 logText = logText.substring(max)
             } else {
@@ -130,10 +131,13 @@ inline fun Int.forEach(startIndex: Int = 0, action: (Int) -> Unit) {
 }
 
 fun <T> Boolean.get(`true`: T, `false`: T): T {
-    return if(this) `true` else `false`
+    return if (this) `true` else `false`
 }
 
-fun <T : Any> T?.nonNull(nonNullAction: ((it: T) -> Unit)? = null, nullAction: (() -> Unit)? = null) {
+fun <T : Any> T?.nonNull(
+    nonNullAction: ((it: T) -> Unit)? = null,
+    nullAction: (() -> Unit)? = null
+) {
     this?.let {
         nonNullAction?.let {
             it.invoke(this)
@@ -163,11 +167,11 @@ fun <T> LiveData<T>.observeNotNull(owner: LifecycleOwner, observer: (T) -> Unit)
 }
 
 
-
 private val uiHandler = Handler(Looper.getMainLooper())
 fun mainThread(runnable: () -> Unit) {
     uiHandler.post(runnable)
 }
+
 private val handler = Handler()
 fun subThread(runnable: () -> Unit) {
     handler.post(runnable)
@@ -185,12 +189,18 @@ inline fun <reified T : Activity> Fragment.newActivity(vararg pairs: Pair<String
 inline fun <reified T : Activity> Context.newActivity(vararg pairs: Pair<String, Any?>): Unit =
     this.startActivity(newIntent<T>(*pairs))
 
+inline fun <reified T : Activity> Context.newActivityClearTop(vararg pairs: Pair<String, Any?>): Unit =
+    this.startActivity(newIntent<T>(FLAG_ACTIVITY_CLEAR_TOP, *pairs))
+
 inline fun <reified T : Activity> Activity.newActivity(vararg pairs: Pair<String, Any?>): Unit =
     this.startActivity(newIntent<T>(*pairs))
 
 // TODO https://nhn-playart.dooray.com/project/posts/2727558208982970525 対応
 // TODO ComicViewerActivityの場合に、FLAG_ACTIVITY_CLEAR_TOPを使いたい
-inline fun <reified T : Activity> Activity.newActivityForResult(requestCode: Int = 0, vararg pairs: Pair<String, Any?>) =
+inline fun <reified T : Activity> Activity.newActivityForResult(
+    requestCode: Int = 0,
+    vararg pairs: Pair<String, Any?>
+) =
     this.startActivityForResult(newIntent<T>(FLAG_ACTIVITY_CLEAR_TOP, *pairs), requestCode)
 
 inline fun <reified T : Context> Context.newIntent(vararg pairs: Pair<String, Any?>): Intent =
@@ -199,7 +209,10 @@ inline fun <reified T : Context> Context.newIntent(vararg pairs: Pair<String, An
     }
 
 // TODO https://nhn-playart.dooray.com/project/posts/2727558208982970525 対応
-inline fun <reified T : Context> Context.newIntent(flag: Int, vararg pairs: Pair<String, Any?>): Intent =
+inline fun <reified T : Context> Context.newIntent(
+    flag: Int,
+    vararg pairs: Pair<String, Any?>
+): Intent =
     Intent(this, T::class.java).apply {
         putExtras(bundleOf(*pairs))
         flags = flag
@@ -207,23 +220,64 @@ inline fun <reified T : Context> Context.newIntent(flag: Int, vararg pairs: Pair
 
 //inline fun bundleOf(vararg pairs: Pair<String, Any?>) = Bundle(pairs.size).apply { put(*pairs) }
 
+private var tempToast: Toast? = null
+fun Any.showToast(message: Any) {
 
-fun Any?.showToast(message: Any) {
+    var context: Context? = null
+    if (this.isNotNull && this is Context) {
+        context = this
+    } else {
+        context = globalContext
+    }
+
     when (message) {
         is @StringRes Int -> globalContext?.getString(message)
         is String -> message
         else -> return
     }?.let {
-        mainThread {
-            Toast.makeText(globalContext, it, Toast.LENGTH_LONG).apply {
-                setGravity(Gravity.BOTTOM, 0, 100.toPx)
-                show()
+        context?.apply {
+            val layout = RelativeLayout(context)
+            layout.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val card = CardView(context).apply {
+                radius = 8.toPx.toFloat(); alpha = 0.8f
+                setCardBackgroundColor(android.R.color.black.toColorFromRes)
+                val param = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                layout.addView(this, param)
+            }
+            TextView(context).apply {
+                text = it
+                gravity = Gravity.CENTER
+                setTextColor(android.R.color.white.toColorFromRes)
+                val param = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                )
+                param.setMargins(16.toPx)
+                card.addView(this, param)
+            }
+
+            mainThread {
+                tempToast?.apply {
+                    cancel()
+                }
+                tempToast = Toast(context).apply {
+                    duration = Toast.LENGTH_SHORT
+                    setGravity(Gravity.CENTER, 0, -100.toPx)
+                    view = layout
+                    show()
+                }
             }
         }
 
+
     }
 }
-
 
 
 fun Context.browse(url: String, newTask: Boolean = true) {
@@ -236,6 +290,7 @@ fun Context.browse(url: String, newTask: Boolean = true) {
 
 
 val Int.toPx: Int get() = toPx()
+
 @JvmOverloads
 //infix fun Int.toPx(context: Context?): Int {
 fun Int.toPx(context: Context? = null): Int {
@@ -312,19 +367,17 @@ private var safeClickTime: Long = 0
 fun <T : View> T.safeClick(block: (T) -> Unit) = safeClick(block, 300)
 fun <T : View> T.safeClick(block: (T) -> Unit, interval: Int = 300) = setOnClickListener {
     val currentClickTime = SystemClock.elapsedRealtime()
-    if(currentClickTime > safeClickTime) {
+    if (currentClickTime > safeClickTime) {
         safeClickTime = currentClickTime + interval
         block(it as T)
     }
 }
+
 fun <T : View> T.click(block: (T) -> Unit) = setOnClickListener { block(it as T) }
 fun <T : View> T.longClick(block: (T) -> Boolean) = setOnLongClickListener { block(it as T) }
 fun Any?.clicks(listener: (View) -> Unit, vararg views: View) {
     views.forEach { it?.click { listener(it) } }
 }
-
-
-
 
 
 private var loadingDialog: Dialog? = null;

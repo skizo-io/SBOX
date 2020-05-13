@@ -1,12 +1,14 @@
 package io.sbox
 
-import android.app.Activity
 import android.app.Application
-import android.os.Bundle
-import androidx.multidex.MultiDexApplication
 import com.bumptech.glide.Glide
+import com.bumptech.glide.MemoryCategory
+import com.facebook.stetho.Stetho
+import com.onesignal.OneSignal
+import io.comico.library.Comico
+import io.sbox.data.Config
 
-class SBOXApplication: MultiDexApplication() {
+class SBOXApplication : Application() {
 
 
     companion object {
@@ -15,38 +17,30 @@ class SBOXApplication: MultiDexApplication() {
     }
 
 
-
-
-
     override fun onCreate() {
         super.onCreate()
-
-/*
 
         instance = this
 
         Config.isDebugMode = BuildConfig.DEBUG_MODE
 
-        Comico.startInit(this)
-            .isDebugMode(Config.isDebugMode, listOf("skizo80@gmail.com"))
-
-
-        Stetho.initializeWithDefaults(this)
-
         Glide.get(this).setMemoryCategory(MemoryCategory.HIGH)
-*/
 
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init()
 
-//        OneSignal.startInit(this)
-//            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-//            .unsubscribeWhenNotificationsAreDisabled(true)
-//            .init()
+        if(Config.isDebugMode) {
+            OneSignal.getTags { tags -> OneSignal.sendTags(tags) }
+            OneSignal.sendTag("PUSH_TEST", "OK")
+            OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
 
-//        if(Config.isDebugMode) {
-//            OneSignal.getTags { tags -> OneSignal.sendTags(tags) }
-//            OneSignal.sendTag("PUSH_TEST", "OK")
-//            OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
-//        }
+            Comico.startInit(this)
+                .isDebugMode(Config.isDebugMode, arrayListOf("skizo80@gmail.com"))
+
+            Stetho.initializeWithDefaults(this)
+        }
 
     }
 
@@ -56,9 +50,6 @@ class SBOXApplication: MultiDexApplication() {
 
         Glide.get(this).trimMemory(level)
     }
-
-
-
 
 
 }
