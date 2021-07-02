@@ -22,7 +22,7 @@ class SBOXApplication : Application() {
 
         instance = this
 
-        Config.isDebugMode = BuildConfig.DEBUG_MODE
+        Config.isDebugMode = BuildConfig.DEBUG
 
         Glide.get(this).setMemoryCategory(MemoryCategory.HIGH)
 

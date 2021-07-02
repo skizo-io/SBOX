@@ -52,7 +52,7 @@ class Builder(val context: Context) {
         Builder.context = context
 
         if (context is Application) {
-            context.registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks())
+//            context.registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks())
 
 
         }
@@ -77,6 +77,7 @@ class Builder(val context: Context) {
             Debugger.showNotification(context, emails)
         }
     }
+/*
 
 
     inner class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
@@ -112,6 +113,7 @@ class Builder(val context: Context) {
         }
     }
 
+*/
 
 }
 

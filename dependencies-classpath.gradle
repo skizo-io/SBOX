@@ -1,0 +1,14 @@
+rootProject.buildscript.repositories {
+    google()
+    jcenter()
+}
+
+
+rootProject.buildscript.dependencies {
+    classpath rootProject.ext.dependencies.classpath.kotlin
+    classpath rootProject.ext.dependencies.classpath.android
+    classpath rootProject.ext.dependencies.classpath.firebase_crashlytics
+    classpath rootProject.ext.dependencies.classpath.gms_google
+    classpath rootProject.ext.dependencies.classpath.firebase_perf
+    classpath rootProject.ext.dependencies.classpath.android_maven
+}

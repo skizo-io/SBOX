@@ -1,5 +1,6 @@
 package io.sbox.sample
 
+import android.provider.DocumentsContract
 import android.text.Html
 import io.comico.library.extensions.trace
 import org.jsoup.Jsoup
@@ -19,14 +20,14 @@ class WebParsing {
                     var url = "https://buscatch.net/mobile/gyosei/?u=a10375314944f584660014"
 
 
-                    val doc: Document = Jsoup.connect(url).get()
+                    val doc: Document? = Jsoup.connect(url).get()
 
-                    val title: String = doc.title()
+                    val title: String? = doc?.title()
                     builder.append(title).append("\n")
 
 
                     trace("1@@@@@@@@@@@@@ ", title)
-                    val links: Elements = doc.select("a[href]")
+                    val links: Elements? = doc?.select("a[href]")
 
 
 //                trace("3@@@@@@@@@@@@@ ", links)
@@ -60,11 +61,11 @@ class WebParsing {
 
 //                val imgs: Elements =    rawData.select("img[class=lz-lazyload]") // lz-lazyload 클래스를 가진 img들
 
-                    val notice: Elements = doc.select("div[id=announce] span")
+                    val notice: Elements? = doc?.select("div[id=announce] span")
 
-                    trace("4@@@@@@@@@@@@@ ", notice.first().html())
-                    trace("4@@@@@@@@@@@@@ ", notice.first().text())
-                    trace("4@@@@@@@@@@@@@ ", Html.fromHtml(notice.first().text()).toString())
+                    trace("4@@@@@@@@@@@@@ ", notice?.first()?.html())
+                    trace("4@@@@@@@@@@@@@ ", notice?.first()?.text())
+                    trace("4@@@@@@@@@@@@@ ", Html.fromHtml(notice?.first()?.text()).toString())
 
 /*
 
@@ -90,10 +91,13 @@ V: 4@@@@@@@@@@@@@  : [本日の運行]：◆通常運行 予定より早く運�
 //                trace("4@@@@@@@@@@@@@ ", builder)   あと39分で到着予定
 
 
-                    for (link in links) {
-                        builder.append("\n").append("Link : ").append(link.attr("href"))
-                            .append("\n").append("Text : ").append(link.text())
+                    links?.let { links ->
+                        for (link in links) {
+                            builder.append("\n").append("Link : ").append(link.attr("href"))
+                                .append("\n").append("Text : ").append(link.text())
+                        }
                     }
+
 
 
                 } catch (e: IOException) {

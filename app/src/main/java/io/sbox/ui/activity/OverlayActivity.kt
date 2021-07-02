@@ -36,9 +36,13 @@ class OverlayActivity : BaseActivity() {
         )
     }
 
+
+
     private val canOverlay = registerForActivityResult(OverlayActivityResultContract()) {
         runService()
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,9 +79,7 @@ class OverlayActivity : BaseActivity() {
 
 class OverlayActivityResultContract : ActivityResultContract<String, Boolean>() {
 
-    override fun createIntent(context: Context, input: String?): Intent =
-        Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(input))
+    override fun parseResult(resultCode: Int, intent: Intent?): Boolean = resultCode == Activity.RESULT_OK
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Boolean =
-        resultCode == Activity.RESULT_OK
+    override fun createIntent(context: Context, input: String?): Intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(input))
 }

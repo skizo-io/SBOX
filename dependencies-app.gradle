@@ -1,0 +1,132 @@
+rootProject.allprojects { project ->
+
+    if (project.name == 'app') {
+
+        project.afterEvaluate {
+
+            repositories {
+                google()
+                jcenter()
+            }
+
+            dependencies {
+                implementation fileTree(dir: 'libs', include: ['*.jar'])
+                testImplementation rootProject.ext.dependencies.test.junit
+                androidTestImplementation rootProject.ext.dependencies.test.ext_junit
+                androidTestImplementation rootProject.ext.dependencies.test.espresso_core
+                androidTestImplementation rootProject.ext.dependencies.test.testrunner
+
+                implementation rootProject.ext.dependencies.common.core_ktx
+                implementation rootProject.ext.dependencies.common.material
+                implementation rootProject.ext.dependencies.common.constraintlayout
+                implementation rootProject.ext.dependencies.common.vectordrawable
+                implementation rootProject.ext.dependencies.common.navigation_fragment
+                implementation rootProject.ext.dependencies.common.navigation_ui
+                implementation rootProject.ext.dependencies.common.navigation_fragment_ktx
+                implementation rootProject.ext.dependencies.common.navigation_ui_ktx
+                implementation rootProject.ext.dependencies.common.lifecycle
+//                implementation rootProject.ext.dependencies.common.commons_codec
+                implementation rootProject.ext.dependencies.common.play_core
+                implementation rootProject.ext.dependencies.common.kotlin_stdlib
+                implementation rootProject.ext.dependencies.common.kotlin_reflect
+                implementation rootProject.ext.dependencies.common.activity_ktx
+                implementation rootProject.ext.dependencies.common.fragment_ktx
+                implementation rootProject.ext.dependencies.common.appcompat
+                implementation rootProject.ext.dependencies.common.activity
+                implementation rootProject.ext.dependencies.common.support_design
+                implementation rootProject.ext.dependencies.common.paging_runtime
+                implementation rootProject.ext.dependencies.common.paging_rxjava2
+                testImplementation rootProject.ext.dependencies.common.paging_common
+
+
+                implementation rootProject.ext.dependencies.app.rxandroid
+                implementation rootProject.ext.dependencies.app.rxjava
+                implementation rootProject.ext.dependencies.app.coroutines_core
+                implementation rootProject.ext.dependencies.app.coroutines_android
+                implementation rootProject.ext.dependencies.app.coroutines_rx2
+                implementation rootProject.ext.dependencies.app.retrofit2
+                implementation rootProject.ext.dependencies.app.retrofit2_gson
+                implementation rootProject.ext.dependencies.app.retrofit2_rxjava2
+                implementation rootProject.ext.dependencies.app.retrofit2_scalars
+                implementation rootProject.ext.dependencies.app.okhttp3_logging
+                implementation rootProject.ext.dependencies.app.stetho
+                implementation rootProject.ext.dependencies.app.stetho_okhttp3
+                implementation rootProject.ext.dependencies.app.firebase_core
+                implementation rootProject.ext.dependencies.app.firebase_analytics
+                implementation rootProject.ext.dependencies.app.firebase_crashlytics
+                implementation rootProject.ext.dependencies.app.firebase_jobdispatcher
+                implementation rootProject.ext.dependencies.app.gms_analytics
+                implementation rootProject.ext.dependencies.app.gms_auth
+                implementation rootProject.ext.dependencies.app.gms_location
+                implementation rootProject.ext.dependencies.app.gson
+                implementation rootProject.ext.dependencies.app.onesignal
+                implementation rootProject.ext.dependencies.app.glide
+                implementation rootProject.ext.dependencies.app.glide_transform
+                implementation rootProject.ext.dependencies.app.glide_qpu
+                kapt rootProject.ext.dependencies.app.glide_compiler
+                implementation rootProject.ext.dependencies.app.viewpager2
+                implementation rootProject.ext.dependencies.app.room_runtime
+                implementation rootProject.ext.dependencies.app.room_rxjava2
+                annotationProcessor rootProject.ext.dependencies.app.room_compiler
+                kapt rootProject.ext.dependencies.app.persistence_room
+                annotationProcessor rootProject.ext.dependencies.app.lombok
+                implementation rootProject.ext.dependencies.app.work_runtime_ktx
+                implementation rootProject.ext.dependencies.app.work_runtime
+                androidTestImplementation rootProject.ext.dependencies.app.wor_testing
+                implementation rootProject.ext.dependencies.app.recyclerview
+                implementation rootProject.ext.dependencies.app.appcompat
+
+
+                implementation rootProject.ext.dependencies.app.okhttp3
+                implementation rootProject.ext.dependencies.app.okhttp3_urlconnection
+                implementation rootProject.ext.dependencies.app.okhttp3_integration
+
+                implementation rootProject.ext.dependencies.app.imagezoom_library
+                implementation rootProject.ext.dependencies.app.image_cropper
+
+                implementation rootProject.ext.dependencies.app.jsoup
+            }
+
+        }
+    } else if (project.name == 'library') {
+
+        project.afterEvaluate {
+
+            repositories {
+                google()
+                jcenter()
+            }
+
+            dependencies {
+                implementation fileTree(dir: 'libs', include: ['*.jar'])
+                testImplementation rootProject.ext.dependencies.test.junit
+                androidTestImplementation rootProject.ext.dependencies.test.ext_junit
+                androidTestImplementation rootProject.ext.dependencies.test.espresso_core
+                androidTestImplementation rootProject.ext.dependencies.test.testrunner
+
+                implementation rootProject.ext.dependencies.common.core_ktx
+                implementation rootProject.ext.dependencies.common.material
+                implementation rootProject.ext.dependencies.common.constraintlayout
+                implementation rootProject.ext.dependencies.common.vectordrawable
+                implementation rootProject.ext.dependencies.common.navigation_fragment
+                implementation rootProject.ext.dependencies.common.navigation_ui
+                implementation rootProject.ext.dependencies.common.navigation_fragment_ktx
+                implementation rootProject.ext.dependencies.common.navigation_ui_ktx
+                implementation rootProject.ext.dependencies.common.lifecycle
+//                implementation rootProject.ext.dependencies.common.commons_codec
+                implementation rootProject.ext.dependencies.common.play_core
+                implementation rootProject.ext.dependencies.common.kotlin_stdlib
+                implementation rootProject.ext.dependencies.common.kotlin_reflect
+                implementation rootProject.ext.dependencies.common.activity_ktx
+                implementation rootProject.ext.dependencies.common.fragment_ktx
+                implementation rootProject.ext.dependencies.common.appcompat
+                implementation rootProject.ext.dependencies.common.activity
+                implementation rootProject.ext.dependencies.common.paging_runtime
+                implementation rootProject.ext.dependencies.common.paging_rxjava2
+                testImplementation rootProject.ext.dependencies.common.paging_common
+
+                implementation rootProject.ext.dependencies.library.multidex
+            }
+        }
+    }
+}
